@@ -1,0 +1,46 @@
+
+
+
+.bt-pill-copy:hover {
+    background: #eef2ff;
+    color: #4b5563;
+}
+
+.bt-halt-btn:hover {
+    background: #fecaca;
+}
+
+.bt-button-small:hover,
+.bt-pill-btn:hover,
+.bt-mini-btn:hover,
+.bt-chip:hover {
+    background: #f3f4ff;
+    border-color: #e0e7ff;
+}
+
+.bt-panel tbody tr:nth-child(even) td {
+    background: #fbfcff;
+}
+
+.bt-panel tbody tr:hover td {
+    background: #f3f4ff;
+}
+
+.bt-run.is-saving .bt-spinner {
+    display: inline-block;
+    animation: btSpin 0.8s linear infinite;
+}
+
+.bt-run.is-saving {
+    opacity: 0.9;
+    cursor: progress;
+}
+
+.bt-cycle-open td {
+    opacity: 0.55;
+}
+
+@keyframes btSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}

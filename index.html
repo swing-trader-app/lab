@@ -1,0 +1,454 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SwingTrader Gui</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="gLWkrOSB45bZHCDVbXnumoYtJqupJfZ6E5PGsXmG">
+    <link rel="stylesheet" href="/css/gui.css">
+    <script src="//code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body class="bt-body">
+<div class="bt-container">
+    <header class="bt-header">
+        <div>
+            <h1 class="bt-title">
+                <image style="position: relative; top: +7px; left: +3px;" src="http://swingtrader.test/logo.png"/>
+                SwingTrader
+            </h1>
+            <div class="bt-subtitle" id="uuid-display">
+                <div class="bt-uuid-row bt-field">
+                    <select id="bt-uuid-select" class="bt-uuid-select" aria-label="UUID configuration">
+                        <option value="__new__">+ New configuration</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="bt-header-meta bt-header-meta-vertical">
+            <div id="bt-live-price" class="bt-live-price" aria-label="Live price">Waiting...</div>
+
+            <div class="bt-header-mode">
+                <div class="bt-seg bt-seg-sm" role="radiogroup" aria-label="Mode">
+                    <input class="bt-seg-input" type="radio" id="bt-mode-backtest" name="bt-mode" value="backtest"
+                           checked>
+                    <label class="bt-seg-label" for="bt-mode-backtest">Backtest</label>
+
+                    <input class="bt-seg-input" type="radio" id="bt-mode-shadow" name="bt-mode" value="shadow">
+                    <label class="bt-seg-label" for="bt-mode-shadow">Shadow</label>
+
+                    <input class="bt-seg-input" type="radio" id="bt-mode-live" name="bt-mode" value="live">
+                    <label class="bt-seg-label" for="bt-mode-live">Live</label>
+                </div>
+            </div>
+
+            <div class="bt-header-pill">
+                <span class="bt-header-pill-label">UUID</span>
+                <span class="bt-header-pill-value bt-pill-row">
+                    <span id="bt-uuid-pill">—</span>
+                    <button
+                            type="button"
+                            class="bt-pill-copy"
+                            id="bt-uuid-copy"
+                            aria-label="Copy UUID"
+                            title="Copy UUID"
+                            onclick="$('#bt-uuid-pill').copy()"
+                    >
+                        <svg class="bt-pill-copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M8 8V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2"
+                                  stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                            <path d="M6 8h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2z"
+                                  stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                  stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </span>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="bt-main">
+        <section class="bt-panel bt-controls" aria-label="Gui controls">
+
+            <form method="POST" action="http://swingtrader.test/start" class="bt-controls-form">
+                <input type="hidden" name="_token" value="gLWkrOSB45bZHCDVbXnumoYtJqupJfZ6E5PGsXmG" autocomplete="off">                <input type="hidden" id="bt-mode-input" name="mode" value="backtest">
+                <input type="hidden" id="bt-uuid-input" name="uuid" value="">
+
+                <div class="bt-panel-header-input">
+                    <div class="bt-titlebar-row">
+                        <input
+                                type="text"
+                                id="bt-config-description"
+                                placeholder="Description or Title"
+                                autocomplete="off"
+                        />
+
+                        <div class="bt-titlebar-active" aria-label="Backtest controls">
+                            <!-- Logging toggle (shadow / live only) -->
+                            <div class="bt-logging-toggle" style="margin-right: 1em;">
+                                <div class="bt-seg bt-seg-sm" role="radiogroup" aria-label="logging">
+                                    <input class="bt-seg-input" type="radio" id="bt-logging-off" name="bt-logging" value="0" checked>
+                                    <label class="bt-seg-label" for="bt-logging-off">Silent</label>
+
+                                    <input class="bt-seg-input" type="radio" id="bt-logging-on" name="bt-logging" value="1">
+                                    <label class="bt-seg-label" for="bt-logging-on">Log</label>
+                                </div>
+                            </div>
+
+                            <!-- Active toggle (shadow / live only) -->
+                            <div class="bt-active-toggle" data-visible-modes="shadow,live">
+                                <div class="bt-seg bt-seg-sm" role="radiogroup" aria-label="Active">
+                                    <input class="bt-seg-input" type="radio" id="bt-active-off" name="bt-active" value="0" checked>
+                                    <label class="bt-seg-label" for="bt-active-off">Inactive</label>
+
+                                    <input class="bt-seg-input" type="radio" id="bt-active-on" name="bt-active" value="1">
+                                    <label class="bt-seg-label" for="bt-active-on">Active</label>
+                                </div>
+                            </div>
+
+                            <!-- Halt button (backtest only) -->
+                            <div data-visible-modes="backtest">
+                                <button type="button" id="bt-halt" class="bt-halt-btn">STOP</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ERROR/SUCCESS: between title bar and form body -->
+                <section id="bt-error" class="bt-error" hidden></section>
+                <section id="bt-success" class="bt-success" hidden></section>
+
+                <div id="bt-backtest-controls">
+                    <div class="bt-controls-row">
+                        <div class="bt-field">
+                            <label for="bt-exchange">Exchange</label>
+                            <select id="bt-exchange" name="targeting[exchange]" data-map='{"SOLUSD":{"kraken":"SOLUSD","coinbase":"SOL-USD"},"BTCUSD":{"kraken":"BTCUSD","coinbase":"BTC-USD"},"XRPUSD":{"kraken":"XRPUSD","coinbase":"XRP-USD"}}'>
+                                <option value="coinbase">coinbase</option>
+                                <option value="kraken">kraken</option>
+                            </select>
+                        </div>
+
+                        <div class="bt-field">
+                            <label for="bt-symbol">Pair</label>
+                            <select id="bt-symbol" name="targeting[symbol]">
+                                <option value="BTCUSD">btcusd</option>
+                                <option value="SOLUSD">solusd</option>
+                                <option value="XRPUSD">xrpusd</option>
+                            </select>
+                        </div>
+
+                        <div class="bt-field">
+                            <label for="bt-candleSize">Timeframe</label>
+                            <select id="bt-candleSize" name="candle_size">
+                                <option value="1m">1m</option>
+                                <option value="3m">3m</option>
+                                <option value="15m">15m</option>
+                                <option value="1h">1h</option>
+                                <option value="4h">4h</option>
+                                <option value="1d">1d</option>
+                                <option value="1w">1w</option>
+                            </select>
+                        </div>
+
+                        <div class="bt-field">
+                            <label for="bt-drag">Drag <span class="bt-drag-value" id="bt-drag-value">0.005</span>s</label>
+                            <input type="range" id="bt-drag" name="backtest[drag]" value="0.000" step="0.005" min="0.000" max="0.250">
+                        </div>
+
+                        <div class="bt-field">
+                            <label for="bt-from">From</label>
+                            <input type="date" id="bt-from" name="backtest[from]">
+                        </div>
+
+                        <div class="bt-field">
+                            <label for="bt-to">To</label>
+                            <input type="date" id="bt-to" name="backtest[to]">
+                        </div>
+                    </div>
+
+                    <div class="bt-controls-row bt-indicators-grid">
+                        <div class="bt-field">
+                            <label>RSI</label>
+                            <div class="bt-seg bt-seg-sm">
+                                <input type="radio" id="ind-0-default" name="indicators[0][enabled]" value=""
+                                       class="bt-seg-input" checked>
+                                <label for="ind-0-default" class="bt-seg-label">Default</label>
+
+                                <input type="radio" id="ind-0-on" name="indicators[0][enabled]" value="1"
+                                       class="bt-seg-input">
+                                <label for="ind-0-on" class="bt-seg-label">On</label>
+
+                                <input type="radio" id="ind-0-off" name="indicators[0][enabled]" value="0"
+                                       class="bt-seg-input">
+                                <label for="ind-0-off" class="bt-seg-label">Off</label>
+                            </div>
+                        </div>
+
+                        <div class="bt-field">
+                            <label>Trend</label>
+                            <div class="bt-seg bt-seg-sm">
+                                <input type="radio" id="ind-1-default" name="indicators[1][enabled]" value=""
+                                       class="bt-seg-input" checked>
+                                <label for="ind-1-default" class="bt-seg-label">Default</label>
+
+                                <input type="radio" id="ind-1-on" name="indicators[1][enabled]" value="1"
+                                       class="bt-seg-input">
+                                <label for="ind-1-on" class="bt-seg-label">On</label>
+
+                                <input type="radio" id="ind-1-off" name="indicators[1][enabled]" value="0"
+                                       class="bt-seg-input">
+                                <label for="ind-1-off" class="bt-seg-label">Off</label>
+                            </div>
+                        </div>
+
+                        <div class="bt-field">
+                            <label>Volatility</label>
+                            <div class="bt-seg bt-seg-sm">
+                                <input type="radio" id="ind-2-default" name="indicators[2][enabled]" value=""
+                                       class="bt-seg-input" checked>
+                                <label for="ind-2-default" class="bt-seg-label">Default</label>
+
+                                <input type="radio" id="ind-2-on" name="indicators[2][enabled]" value="1"
+                                       class="bt-seg-input">
+                                <label for="ind-2-on" class="bt-seg-label">On</label>
+
+                                <input type="radio" id="ind-2-off" name="indicators[2][enabled]" value="0"
+                                       class="bt-seg-input">
+                                <label for="ind-2-off" class="bt-seg-label">Off</label>
+                            </div>
+                        </div>
+
+                        <div class="bt-field">
+                            <label>Micro</label>
+                            <div class="bt-seg bt-seg-sm">
+                                <input type="radio" id="ind-3-default" name="indicators[3][enabled]" value=""
+                                       class="bt-seg-input" checked>
+                                <label for="ind-3-default" class="bt-seg-label">Default</label>
+
+                                <input type="radio" id="ind-3-on" name="indicators[3][enabled]" value="1"
+                                       class="bt-seg-input">
+                                <label for="ind-3-on" class="bt-seg-label">On</label>
+
+                                <input type="radio" id="ind-3-off" name="indicators[3][enabled]" value="0"
+                                       class="bt-seg-input">
+                                <label for="ind-3-off" class="bt-seg-label">Off</label>
+                            </div>
+                        </div>
+
+                        <div class="bt-field">
+                            <label>Macro</label>
+                            <div class="bt-seg bt-seg-sm">
+                                <input type="radio" id="ind-4-default" name="indicators[4][enabled]" value=""
+                                       class="bt-seg-input" checked>
+                                <label for="ind-4-default" class="bt-seg-label">Default</label>
+
+                                <input type="radio" id="ind-4-on" name="indicators[4][enabled]" value="1"
+                                       class="bt-seg-input">
+                                <label for="ind-4-on" class="bt-seg-label">On</label>
+
+                                <input type="radio" id="ind-4-off" name="indicators[4][enabled]" value="0"
+                                       class="bt-seg-input">
+                                <label for="ind-4-off" class="bt-seg-label">Off</label>
+                            </div>
+                        </div>
+
+                        <div class="bt-field">
+                            <label>MicroTrend</label>
+                            <div class="bt-seg bt-seg-sm">
+                                <input type="radio" id="ind-5-default" name="indicators[5][enabled]" value=""
+                                       class="bt-seg-input" checked>
+                                <label for="ind-5-default" class="bt-seg-label">Default</label>
+
+                                <input type="radio" id="ind-5-on" name="indicators[5][enabled]" value="1"
+                                       class="bt-seg-input">
+                                <label for="ind-5-on" class="bt-seg-label">On</label>
+
+                                <input type="radio" id="ind-5-off" name="indicators[5][enabled]" value="0"
+                                       class="bt-seg-input">
+                                <label for="ind-5-off" class="bt-seg-label">Off</label>
+                            </div>
+                        </div>
+
+                        <div class="bt-field">
+                            <label>Simple RSI</label>
+                            <div class="bt-seg bt-seg-sm">
+                                <input type="radio" id="ind-6-default" name="indicators[6][enabled]" value=""
+                                       class="bt-seg-input" checked>
+                                <label for="ind-6-default" class="bt-seg-label">Default</label>
+
+                                <input type="radio" id="ind-6-on" name="indicators[6][enabled]" value="1"
+                                       class="bt-seg-input">
+                                <label for="ind-6-on" class="bt-seg-label">On</label>
+
+                                <input type="radio" id="ind-6-off" name="indicators[6][enabled]" value="0"
+                                       class="bt-seg-input">
+                                <label for="ind-6-off" class="bt-seg-label">Off</label>
+                            </div>
+                        </div>
+
+                        <div class="bt-field">
+                            <label>Range</label>
+                            <div class="bt-seg bt-seg-sm">
+                                <input type="radio" id="ind-7-default" name="indicators[7][enabled]" value=""
+                                       class="bt-seg-input" checked>
+                                <label for="ind-7-default" class="bt-seg-label">Default</label>
+
+                                <input type="radio" id="ind-7-on" name="indicators[7][enabled]" value="1"
+                                       class="bt-seg-input">
+                                <label for="ind-7-on" class="bt-seg-label">On</label>
+
+                                <input type="radio" id="ind-7-off" name="indicators[7][enabled]" value="0"
+                                       class="bt-seg-input">
+                                <label for="ind-7-off" class="bt-seg-label">Off</label>
+                            </div>
+                        </div>
+
+                        <div class="bt-field">
+                            <label>Insight</label>
+                            <div class="bt-seg bt-seg-sm">
+                                <input type="radio" id="ind-8-default" name="indicators[8][enabled]" value=""
+                                       class="bt-seg-input" checked>
+                                <label for="ind-8-default" class="bt-seg-label">Default</label>
+
+                                <input type="radio" id="ind-8-on" name="indicators[8][enabled]" value="1"
+                                       class="bt-seg-input">
+                                <label for="ind-8-on" class="bt-seg-label">On</label>
+
+                                <input type="radio" id="ind-8-off" name="indicators[8][enabled]" value="0"
+                                       class="bt-seg-input">
+                                <label for="ind-8-off" class="bt-seg-label">Off</label>
+                            </div>
+                        </div>
+
+                        <div class="bt-field">
+                            <label>DynamicRange</label>
+                            <div class="bt-seg bt-seg-sm">
+                                <input type="radio" id="ind-9-default" name="indicators[9][enabled]" value=""
+                                       class="bt-seg-input" checked>
+                                <label for="ind-9-default" class="bt-seg-label">Default</label>
+
+                                <input type="radio" id="ind-9-on" name="indicators[9][enabled]" value="1"
+                                       class="bt-seg-input">
+                                <label for="ind-9-on" class="bt-seg-label">On</label>
+
+                                <input type="radio" id="ind-9-off" name="indicators[9][enabled]" value="0"
+                                       class="bt-seg-input">
+                                <label for="ind-9-off" class="bt-seg-label">Off</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bt-controls-row bt-controls-row-footer">
+                        <div class="bt-field">
+                            <label>Escalate</label>
+                            <div class="bt-seg bt-seg-sm" role="radiogroup" aria-label="Escalate mode">
+                                <input class="bt-seg-input" type="radio" id="bt-escalate-backtest" name="bt-escalate"
+                                       value="backtest" checked>
+                                <label class="bt-seg-label" for="bt-escalate-backtest">Backtest</label>
+
+                                <input class="bt-seg-input" type="radio" id="bt-escalate-shadow" name="bt-escalate"
+                                       value="shadow">
+                                <label class="bt-seg-label" for="bt-escalate-shadow">Shadow</label>
+
+                                <input class="bt-seg-input" type="radio" id="bt-escalate-live" name="bt-escalate"
+                                       value="live">
+                                <label class="bt-seg-label" for="bt-escalate-live">Live</label>
+                            </div>
+                        </div>
+
+                        <div class="bt-field bt-field-button">
+                            <button id="bt-run" type="submit" class="bt-run">
+                                <span class="bt-spinner" aria-hidden="true"
+                                      style="position: absolute; margin-left: -25px;"></span>
+                                <span class="bt-run-text">Save</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section id="bt-metrics-wrapper" class="bt-panel" aria-label="Gui metrics" style="display:none;">
+            <h2 class="bt-section-title">Summary</h2>
+            <div id="bt-metrics" class="bt-metrics-grid"></div>
+        </section>
+
+        <section id="bt-chart-wrapper" class="bt-panel bt-chart-panel" aria-label="Price chart" style="display:none;">
+            <div class="bt-panel-header">
+                <h2 class="bt-section-title">Price &amp; Trades</h2>
+                <div class="bt-panel-actions">
+                    <button id="bt-trim-open" type="button" class="bt-button-small">Trim to open cycle</button>
+                </div>
+            </div>
+            <div class="bt-chart-scroll">
+                <canvas id="bt-chart" width="1200" height="320"></canvas>
+            </div>
+            <div id="bt-chart-message" class="bt-chart-message"></div>
+        </section>
+
+        <section id="bt-trades-wrapper" class="bt-panel" aria-label="Trades table" style="display:none;">
+            <div class="bt-panel-header">
+                <h2 class="bt-section-title">Executed trades</h2>
+                <span class="bt-panel-note">Most recent first</span>
+            </div>
+            <div class="bt-table-wrapper">
+                <table class="bt-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Time</th>
+                        <th>Pair</th>
+                        <th>Side</th>
+                        <th>Units</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody id="bt-trades-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="bt-cycles-wrapper" class="bt-panel" aria-label="Cycles table" style="display:none;">
+            <div class="bt-panel-header">
+                <h2 class="bt-section-title">Cycles</h2>
+                <div class="bt-panel-actions">
+                    <div class="bt-seg bt-seg-sm" role="radiogroup" aria-label="Cycle filter">
+                        <input class="bt-seg-input" type="radio" id="bt-cycles-all"
+                               name="bt-cycles-filter" value="all" checked>
+                        <label class="bt-seg-label" for="bt-cycles-all">All</label>
+
+                        <input class="bt-seg-input" type="radio" id="bt-cycles-success"
+                               name="bt-cycles-filter" value="success">
+                        <label class="bt-seg-label" for="bt-cycles-success">Completed</label>
+                    </div>
+                </div>
+            </div>
+            <div class="bt-table-wrapper">
+                <table class="bt-table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Strategy</th>
+                        <th>Kickoff</th>
+                        <th colspan="3">Entry</th>
+                        <th colspan="3">Exit</th>
+                        <th>PnL</th>
+
+                        <th>Duration</th>
+                    </tr>
+                    </thead>
+                    <tbody id="bt-cycles-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+</body>
+</html>

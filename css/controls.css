@@ -1,0 +1,144 @@
+
+
+
+.bt-header-pill {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #f3f4ff;
+    border: 1px solid #e0e7ff;
+    min-width: 90px;
+}
+
+.bt-pill-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.bt-pill-copy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    border: 1px solid #e0e7ff;
+    background: transparent;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0;
+}
+
+.bt-field input,
+.bt-field select {
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    background: #f9fafb;
+    box-sizing: border-box;
+}
+
+.bt-field input[type="range"] {
+    max-width: 100%;
+}
+
+.bt-seg {
+    display: inline-flex;
+    border-radius: 999px;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    padding: 3px;
+    gap: 3px;
+}
+
+.bt-seg-input {
+    position: absolute !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.bt-seg-label {
+    cursor: pointer;
+    border-radius: 999px;
+    padding: 7px 10px;
+    color: #6b7280;
+}
+
+.bt-seg-input:checked + .bt-seg-label {
+    background: #ffffff;
+    color: #111827;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.10);
+}
+
+#bt-drag {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 28px;
+    border-radius: 999px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#bt-drag::-webkit-slider-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: #0ea5e9;
+    border: 2px solid #ffffff;
+}
+
+.bt-button-small,
+.bt-pill-btn,
+.bt-mini-btn,
+.bt-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.bt-halt-btn {
+    border-radius: 999px;
+    padding: 7px 14px;
+    border: 1px solid #fecaca;
+    background: #fee2e2;
+    cursor: pointer;
+}
+
+.bt-halt-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.bt-run {
+    width: 100%;
+    margin-top: 1.6em;
+    padding: 10px 12px;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(135deg, #22c55e, #0ea5e9);
+    cursor: pointer;
+    position: relative;
+}
+
+.bt-run .bt-spinner {
+    display: none;
+    width: 14px;
+    height: 14px;
+    margin-left: 10px;
+    border-radius: 999px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    vertical-align: middle;
+}

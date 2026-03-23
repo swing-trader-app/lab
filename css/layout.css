@@ -1,0 +1,349 @@
+
+
+
+.bt-body {
+    margin: 0;
+    padding: 0;
+    background: #f5f6fb;
+    overflow-x: hidden;
+}
+
+.bt-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 16px 32px;
+}
+
+.bt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0 20px;
+    gap: 12px;
+}
+
+.bt-title img,
+.bt-title image {
+    height: 1.1em;
+    width: auto;
+    flex-shrink: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.bt-header-meta {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.bt-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.bt-panel {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 14px 16px 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 14px 40px rgba(15, 23, 42, 0.06);
+    overflow: hidden;
+}
+
+.bt-panel-header-input {
+    margin: -14px -16px 14px;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.bt-panel-header-input input {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 0;
+    outline: none;
+}
+
+.bt-titlebar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 40px;
+}
+
+.bt-titlebar-row input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 34px;
+    line-height: 34px;
+}
+
+.bt-titlebar-active {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+}
+
+.bt-controls-row {
+    display: grid;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.bt-controls-row > .bt-field {
+    min-width: 0;
+}
+
+.bt-indicators-grid {
+    margin-top: 10px;
+}
+
+.bt-controls-row-footer {
+    margin-top: 10px;
+}
+
+.bt-panel .bt-subhead,
+.bt-panel .bt-panel-subhead,
+.bt-panel .bt-table-subhead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+.bt-kpi-grid,
+.bt-summary-grid,
+.bt-summary-cards,
+.bt-cards,
+.bt-metrics,
+.bt-metrics-grid {
+    display: grid;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.bt-kpi-card,
+.bt-summary-card,
+.bt-card,
+.bt-metric,
+#bt-metrics.bt-metrics-grid > * {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 12px 12px;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+    min-width: 0;
+}
+
+.bt-metric-split-values {
+    display: flex;
+    gap: 12px;
+}
+
+.bt-metric-split-side {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.bt-metric-split-side + .bt-metric-split-side {
+    border-left: 1px solid #eef2f7;
+    padding-left: 12px;
+}
+
+.bt-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.bt-panel-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+#bt-trades-wrapper .bt-panel-header > .bt-panel-note,
+#bt-cycles-wrapper .bt-panel-header > .bt-panel-note {
+    margin-left: auto;
+    text-align: right;
+}
+
+.bt-chart,
+.bt-chart-wrap,
+.bt-panel-chart {
+    margin-top: 10px;
+}
+
+.bt-chart-scroll,
+.bt-table-scroll,
+.bt-panel .bt-table-scroll,
+.bt-table-wrapper,
+.bt-panel .bt-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.bt-chart-scroll {
+    overflow-y: hidden;
+}
+
+.bt-chart-scroll #bt-chart {
+    width: auto;
+    height: auto;
+    display: block;
+    max-width: none;
+}
+
+.bt-chart svg,
+.bt-chart-wrap svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.bt-panel table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.bt-panel thead th {
+    position: sticky;
+    top: 0;
+    background: #f7f8fc;
+    padding: 10px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+}
+
+.bt-panel tbody td {
+    padding: 10px 10px;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.bt-field-button {
+    justify-content: flex-end;
+}
+
+.bt-duration {
+    text-align: right;
+}
+
+.bt-kickoff,
+.bt-cycle-units,
+.bt-enter-at {
+    text-align: center;
+}
+
+.bt-entry-price,
+.bt-exit-price,
+.btn {
+    text-align: left;
+}
+
+.bt-side-buy,
+.bt-side-sell {
+    text-align: right;
+}
+
+.bt-live-price {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 4px 8px;
+    pointer-events: none;
+    z-index: 50;
+}
+
+@media (min-width: 1000px) {
+    .bt-controls-row {
+        grid-template-columns: 1fr 1fr 1fr 280px;
+    }
+
+    .bt-controls-row.bt-indicators-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 900px) {
+    .bt-kpi-grid,
+    .bt-summary-grid,
+    .bt-summary-cards,
+    .bt-cards,
+    .bt-metrics,
+    .bt-metrics-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 600px) and (max-width: 999px) {
+    .bt-controls-row,
+    .bt-controls-row.bt-indicators-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 600px) and (max-width: 899px) {
+    .bt-kpi-grid,
+    .bt-summary-grid,
+    .bt-summary-cards,
+    .bt-cards,
+    .bt-metrics,
+    .bt-metrics-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 600px) {
+    .bt-controls-row.bt-controls-row-footer {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+    }
+}
+
+@media (max-width: 599px) {
+    .bt-controls-row,
+    .bt-controls-row.bt-indicators-grid,
+    .bt-kpi-grid,
+    .bt-summary-grid,
+    .bt-summary-cards,
+    .bt-cards,
+    .bt-metrics,
+    .bt-metrics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 599px) {
+    .bt-panel thead th,
+    .bt-panel tbody td {
+        padding: 8px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bt-container {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .bt-panel {
+        padding-left: 12px;
+        padding-right: 12px;
+        border-radius: 14px;
+    }
+}

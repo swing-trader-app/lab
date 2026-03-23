@@ -1,0 +1,219 @@
+
+
+
+.bt-body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #111827;
+}
+
+.bt-title {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #111827;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    line-height: 1;
+}
+
+.bt-subtitle {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.bt-header-pill-label,
+.bt-kpi-label,
+.bt-summary-label,
+.bt-card-label,
+.bt-metric-label,
+.bt-panel thead th {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.bt-header-pill-label {
+    color: #6b7280;
+}
+
+.bt-header-pill-value {
+    font-size: 12px;
+    font-weight: 500;
+    color: #4b5563;
+    margin-top: 2px;
+}
+
+.bt-field {
+    font-size: 12px;
+}
+
+.bt-field label {
+    color: #6b7280;
+}
+
+.bt-field input,
+.bt-field select,
+.bt-seg-label,
+.bt-button-small,
+.bt-pill-btn,
+.bt-mini-btn,
+.bt-chip,
+.bt-halt-btn,
+.bt-run,
+.bt-error,
+.bt-success,
+.bt-live-price,
+.bt-panel table {
+    font-size: 12px;
+}
+
+.bt-panel h2,
+.bt-panel h3 {
+    margin: 0;
+    font-weight: 700;
+    color: #111827;
+    letter-spacing: 0.01em;
+}
+
+.bt-panel h2 {
+    font-size: 16px;
+}
+
+.bt-panel h3 {
+    font-size: 13px;
+    color: #374151;
+}
+
+.bt-panel .bt-subhead,
+.bt-panel .bt-panel-subhead,
+.bt-panel .bt-table-subhead,
+.bt-panel-note,
+.bt-kpi-sub,
+.bt-summary-sub,
+.bt-card-sub,
+.bt-metric-sub,
+.bt-metric-split-side .bt-metric-sub {
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.bt-kpi-label,
+.bt-summary-label,
+.bt-card-label,
+.bt-metric-label {
+    color: #6b7280;
+    margin-bottom: 6px;
+}
+
+.bt-kpi-value,
+.bt-summary-value,
+.bt-card-value,
+.bt-metric-value,
+.bt-metric-split-side .bt-metric-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: #111827;
+    line-height: 1.1;
+}
+
+.bt-panel-note {
+    white-space: nowrap;
+}
+
+.bt-button-small,
+.bt-pill-btn,
+.bt-mini-btn,
+.bt-chip {
+    color: #374151;
+    white-space: nowrap;
+}
+
+.bt-halt-btn {
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #991b1b;
+}
+
+.bt-run {
+    color: #ecfdf5;
+    font-weight: 600;
+}
+
+.bt-error {
+    color: #991b1b;
+    line-height: 1.35;
+    white-space: pre-line;
+}
+
+.bt-success {
+    color: #166534;
+    line-height: 1.35;
+    white-space: pre-line;
+}
+
+.bt-metric-value.positive,
+.bt-kpi-value.positive,
+.bt-summary-value.positive,
+.bt-card-value.positive {
+    color: #16a34a;
+}
+
+.bt-metric-value.negative,
+.bt-kpi-value.negative,
+.bt-summary-value.negative,
+.bt-card-value.negative {
+    color: #dc2626;
+}
+
+.bt-metric-value.warning,
+.bt-kpi-value.warning,
+.bt-summary-value.warning,
+.bt-card-value.warning {
+    color: #ca8a04;
+}
+
+.bt-panel thead th {
+    color: #6b7280;
+    font-weight: 700;
+}
+
+.bt-panel tbody td {
+    color: #111827;
+    white-space: nowrap;
+}
+
+.bt-panel tbody td.bt-pnl-positive,
+.bt-panel tbody td.bt-pnl-positive *,
+.bt-panel tbody td.bt-side-sell,
+.bt-panel tbody td.bt-side-sell * {
+    color: #16a34a;
+    font-weight: 700;
+}
+
+.bt-panel tbody td.bt-pnl-negative,
+.bt-panel tbody td.bt-pnl-negative *,
+.bt-panel tbody td.bt-side-buy,
+.bt-panel tbody td.bt-side-buy * {
+    color: #dc2626;
+    font-weight: 700;
+}
+
+.bt-duration {
+    font-variant-numeric: tabular-nums;
+}
+
+.bt-live-price {
+    line-height: 16px;
+    font-weight: 600;
+    color: #111827;
+}
+
+@media (max-width: 599px) {
+    .bt-panel table {
+        font-size: 11px;
+    }
+}
